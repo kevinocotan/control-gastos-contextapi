@@ -1,4 +1,4 @@
-import BudgetForm from "./BudgetForm"
+import BudgetForm from "./components/BudgetForm"
 
 function App() {
 
