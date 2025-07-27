@@ -4,6 +4,7 @@ import { categories } from "../data/categories";
 import DatePicker from 'react-date-picker';
 import 'react-calendar/dist/Calendar.css';
 import 'react-date-picker/dist/DatePicker.css';
+import ErrorMessage from "./ErrorMessage";
 
 export default function ExpenseForm() {
     const [expense, setExpense] = useState<DraftExpense>({
@@ -13,6 +14,8 @@ export default function ExpenseForm() {
         date: new Date()
     });
 
+    const [error, setError] = useState('');
+
     const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = e.target;
         const isAmountField = ['amount'].includes(name);
@@ -20,22 +23,34 @@ export default function ExpenseForm() {
             ...expense,
             [name]: isAmountField ? Number(value) : value
         });
-
-        
     }
 
     const handleChangeDate = (value: Value) => {
-        setExpense ({
+        setExpense({
             ...expense,
             date: value
         });
     }
 
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        // Validar
+        if (Object.values(expense).includes('')) {
+            setError('Todos los campos son obligatorios');
+            return;
+        }
+    }
+
+
+
     return (
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={handleSubmit}>
             <legend className="uppercase text-center text-2xl font-black border-b-4 border-blue-500 py-2"
             >Nuevo Gasto
             </legend>
+
+            {error && <ErrorMessage>{error}</ErrorMessage>}
 
             <div className="flex flex-col gap-2">
                 <label
@@ -86,10 +101,10 @@ export default function ExpenseForm() {
                 >
                     <option value="">-- Seleccione --</option>
                     {categories.map(category => (
-                        <option 
-                            key={category.id} 
+                        <option
+                            key={category.id}
                             value={category.id}
-                            >{category.name}
+                        >{category.name}
                         </option>
                     ))}
                 </select>
@@ -108,7 +123,7 @@ export default function ExpenseForm() {
                 />
             </div>
 
-            <input 
+            <input
                 type="submit"
                 value={'Registrar Gasto'}
                 className="bg-blue-600 text-white uppercase font-bold p-2 w-full cursor-pointer rounded-lg"
