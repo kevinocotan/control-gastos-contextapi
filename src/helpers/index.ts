@@ -6,8 +6,8 @@ export function formatCurrency(amount: number) {
 }
 
 export function formatDate(dateStr: string): string {
-    const dateObj = new Date(dateStr);
-    const options = Intl.DateTimeFormatOptions = {
+    const dateObj = new Date(dateStr)
+    const options: Intl.DateTimeFormatOptions = {
         weekday: 'long',
         year: 'numeric',
         month: 'long',

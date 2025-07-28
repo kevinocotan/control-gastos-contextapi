@@ -6,7 +6,7 @@ export default function ExpenseList() {
 
     const { state } = useBudget()
 
-    const isEmpty = useMemo (() => state.expenses.length === 0, [state.expenses.length])
+    const isEmpty = useMemo(() => state.expenses.length === 0, [state.expenses.length])
 
     return (
         <div className="mt-10">
@@ -21,7 +21,7 @@ export default function ExpenseList() {
                         />
                     ))}
                 </>
-                )}
+            )}
         </div>
     )
 }

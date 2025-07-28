@@ -5,15 +5,15 @@ export type BudgetActions =
     { type: 'add-budget', payload: { budget: number } } |
     { type: 'show-modal' } |
     { type: 'close-modal' } |
-    { type: 'add-expense', payload: { expense: DraftExpense} }
+    { type: 'add-expense', payload: { expense: DraftExpense } }
 
 export type BudgetState = {
     budget: number
-    modal : boolean
+    modal: boolean
     expenses: Expense[]
 }
 
-const createExpense = (draftExpense: DraftExpense) : Expense => {
+const createExpense = (draftExpense: DraftExpense): Expense => {
     return {
         ...draftExpense,
         id: uuidv4(),
