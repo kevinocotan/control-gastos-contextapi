@@ -48,6 +48,14 @@ export default function ExpenseForm() {
             type: 'add-expense',
             payload: { expense }
         });
+
+        // Reiniciar el estate
+        setExpense({
+            expenseName: '',
+            amount: 0,
+            category: '',
+            date: new Date()
+        });
     }
 
 
