@@ -20,7 +20,7 @@ export default function ExpenseForm() {
 
     useEffect(() => {
         if (state.editingId) {
-            const editingExpense = state.expenses.filter( currentExpense => currentExpense.id === state.editingId)[0];
+            const editingExpense = state.expenses.filter(currentExpense => currentExpense.id === state.editingId)[0];
             setExpense(editingExpense)
         }
     }, [state.editingId]);
@@ -50,11 +50,17 @@ export default function ExpenseForm() {
             return;
         }
 
-        // Agregar un nuevo gasto
-        dispatch({
-            type: 'add-expense',
-            payload: { expense }
-        });
+        // Agregar o actualizar el gasto
+        if (state.editingId) {
+            dispatch({
+                type: 'update-expense', payload: { expense: { ...expense, id: state.editingId } }
+            });
+        } else {
+            dispatch({
+                type: 'add-expense',
+                payload: { expense }
+            })
+        }
 
         // Reiniciar el estate
         setExpense({
